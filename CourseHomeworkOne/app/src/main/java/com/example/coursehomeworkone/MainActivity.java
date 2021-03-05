@@ -27,7 +27,12 @@ public class MainActivity extends AppCompatActivity {
         initViews();
 
         editBtn.setOnClickListener(view -> {
-            startActivityForResult(new Intent(this, EditActivity.class), EDIT_ACTIVITY_CODE);
+            try {
+                Intent IntentResult = getIntentForResult();
+                startActivityForResult(IntentResult, EDIT_ACTIVITY_CODE);
+            }catch (Exception e){
+                Toast.makeText(this, "Error happened: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
         });
 
     }
@@ -44,6 +49,16 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }
+    }
+
+    private Intent getIntentForResult(){
+        Intent IntentResult = new Intent(this, EditActivity.class);
+        IntentResult.putExtra("nameOld", nameView.getText().toString());
+        IntentResult.putExtra("surnameOld", surnameView.getText().toString());
+        IntentResult.putExtra("patronymicOld", patronymicView.getText().toString());
+        IntentResult.putExtra("dateOfBirthOld", dateOfBirthView.getText().toString());
+        IntentResult.putExtra("emailOld", emailView.getText().toString());
+        return IntentResult;
     }
 
     private void setViewsText(Intent data){

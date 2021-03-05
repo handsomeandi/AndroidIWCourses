@@ -20,6 +20,8 @@ public class EditActivity extends AppCompatActivity {
 
         initViews();
 
+        Intent receivedIntent = getIntent();
+        setViewsEditText(receivedIntent);
 
         saveBtn.setOnClickListener(view -> {
             if(nameEditText.getText().toString().isEmpty() || surnameEditText.getText().toString().isEmpty() || patronymicEditText.getText().toString().isEmpty()
@@ -39,6 +41,20 @@ public class EditActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+
+    private void setViewsEditText(Intent data){
+        String nameFromIntent =  data.getStringExtra("nameOld");
+        String surnameFromIntent = data.getStringExtra("surnameOld");
+        String patronymicFromIntent = data.getStringExtra("patronymicOld");
+        String dateOfBirthFromIntent = data.getStringExtra("dateOfBirthOld");
+        String emailFromIntent = data.getStringExtra("emailOld");
+        nameEditText.setText(nameFromIntent);
+        surnameEditText.setText(surnameFromIntent);
+        patronymicEditText.setText(patronymicFromIntent);
+        dateOfBirthEditText.setText(dateOfBirthFromIntent);
+        emailEditText.setText(emailFromIntent);
     }
 
     private Intent getReturnIntent(){
