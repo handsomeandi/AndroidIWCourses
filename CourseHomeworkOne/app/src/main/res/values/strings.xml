@@ -3,4 +3,10 @@
     <string name="edit">Edit</string>
     <string name="fillAllFields">Заполните все поля</string>
     <string name="errorHappened">Error happened: </string>
+    <string name="save">Save</string>
+    <string name="email">Email</string>
+    <string name="date_of_birth">Дата рождения</string>
+    <string name="patronymic">Отчество</string>
+    <string name="surname">Фамилия</string>
+    <string name="name">Имя</string>
 </resources>
