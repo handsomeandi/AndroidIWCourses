@@ -5,15 +5,26 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+import helpers.IntentDataClass;
+
 public class MainActivity extends AppCompatActivity {
 
 
     public static final int EDIT_ACTIVITY_CODE = 1;
+    public static final String OLD_VALUES = "oldValues";
+    public static final String NEW_VALUES = "newValues";
+    public static final String ERROR_MSG = "errorMsg";
 
     TextView nameView,surnameView,patronymicView,dateOfBirthView, emailView;
     Button editBtn;
@@ -31,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent IntentResult = getIntentForResult();
                 startActivityForResult(IntentResult, EDIT_ACTIVITY_CODE);
             }catch (Exception e){
-                Toast.makeText(this, "Error happened: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.errorHappened + e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -45,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
                 setViewsText(data);
             }else if(resultCode == RESULT_CANCELED){
                 if(data != null) {
-                    Toast.makeText(MainActivity.this, data.getStringExtra("errorMsg"), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, data.getStringExtra(ERROR_MSG), Toast.LENGTH_SHORT).show();
                 }
             }
         }
@@ -53,20 +64,23 @@ public class MainActivity extends AppCompatActivity {
 
     private Intent getIntentForResult(){
         Intent IntentResult = new Intent(this, EditActivity.class);
-        IntentResult.putExtra("nameOld", nameView.getText().toString());
-        IntentResult.putExtra("surnameOld", surnameView.getText().toString());
-        IntentResult.putExtra("patronymicOld", patronymicView.getText().toString());
-        IntentResult.putExtra("dateOfBirthOld", dateOfBirthView.getText().toString());
-        IntentResult.putExtra("emailOld", emailView.getText().toString());
+        IntentDataClass dataIntent = new IntentDataClass();
+        dataIntent.setName(nameView.getText().toString());
+        dataIntent.setSurname(surnameView.getText().toString());
+        dataIntent.setPatronymic(patronymicView.getText().toString());
+        dataIntent.setDateOfBirth(dateOfBirthView.getText().toString());
+        dataIntent.setEmail(emailView.getText().toString());
+        IntentResult.putExtra(OLD_VALUES, dataIntent);
         return IntentResult;
     }
 
     private void setViewsText(Intent data){
-        String nameFromIntent =  data.getStringExtra("name");
-        String surnameFromIntent = data.getStringExtra("surname");
-        String patronymicFromIntent = data.getStringExtra("patronymic");
-        String dateOfBirthFromIntent = data.getStringExtra("dateOfBirth");
-        String emailFromIntent = data.getStringExtra("email");
+        IntentDataClass receivedData = data.getParcelableExtra(NEW_VALUES);
+        String nameFromIntent =  receivedData.getName();
+        String surnameFromIntent = receivedData.getSurname();
+        String patronymicFromIntent = receivedData.getPatronymic();
+        String dateOfBirthFromIntent = receivedData.getDateOfBirth();
+        String emailFromIntent = receivedData.getEmail();
         nameView.setText(nameFromIntent);
         surnameView.setText(surnameFromIntent);
         patronymicView.setText(patronymicFromIntent);

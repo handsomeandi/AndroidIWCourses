@@ -8,10 +8,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import helpers.IntentDataClass;
+
 public class EditActivity extends AppCompatActivity {
 
     EditText nameEditText,surnameEditText,patronymicEditText, dateOfBirthEditText, emailEditText;
     Button saveBtn;
+
+
+    public static final String OLD_VALUES = "oldValues";
+    public static final String NEW_VALUES = "newValues";
+    public static final String ERROR_MSG = "errorMsg";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,14 +33,14 @@ public class EditActivity extends AppCompatActivity {
         saveBtn.setOnClickListener(view -> {
             if(nameEditText.getText().toString().isEmpty() || surnameEditText.getText().toString().isEmpty() || patronymicEditText.getText().toString().isEmpty()
             || dateOfBirthEditText.getText().toString().isEmpty() || emailEditText.getText().toString().isEmpty()){
-                Toast.makeText(this, "Заполните все поля", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.fillAllFields, Toast.LENGTH_SHORT).show();
             }else{
                 Intent returnIntent;
                 try {
                     returnIntent = getReturnIntent();
                 }catch (Exception e){
                     returnIntent = new Intent(this, MainActivity.class);
-                    returnIntent.putExtra("errorMsg", "Error happened: " + e.getMessage());
+                    returnIntent.putExtra(ERROR_MSG, getString(R.string.errorHappened) + e.getMessage());
                     setResult(RESULT_CANCELED,returnIntent);
                     finish();
                 }
@@ -45,11 +52,12 @@ public class EditActivity extends AppCompatActivity {
 
 
     private void setViewsEditText(Intent data){
-        String nameFromIntent =  data.getStringExtra("nameOld");
-        String surnameFromIntent = data.getStringExtra("surnameOld");
-        String patronymicFromIntent = data.getStringExtra("patronymicOld");
-        String dateOfBirthFromIntent = data.getStringExtra("dateOfBirthOld");
-        String emailFromIntent = data.getStringExtra("emailOld");
+        IntentDataClass receivedData = data.getParcelableExtra(OLD_VALUES);
+        String nameFromIntent =  receivedData.getName();
+        String surnameFromIntent = receivedData.getSurname();
+        String patronymicFromIntent = receivedData.getPatronymic();
+        String dateOfBirthFromIntent = receivedData.getDateOfBirth();
+        String emailFromIntent = receivedData.getEmail();
         nameEditText.setText(nameFromIntent);
         surnameEditText.setText(surnameFromIntent);
         patronymicEditText.setText(patronymicFromIntent);
@@ -59,11 +67,13 @@ public class EditActivity extends AppCompatActivity {
 
     private Intent getReturnIntent(){
         Intent returnIntent = new Intent(this, MainActivity.class);
-        returnIntent.putExtra("name", nameEditText.getText().toString());
-        returnIntent.putExtra("surname", surnameEditText.getText().toString());
-        returnIntent.putExtra("patronymic", patronymicEditText.getText().toString());
-        returnIntent.putExtra("dateOfBirth", dateOfBirthEditText.getText().toString());
-        returnIntent.putExtra("email", emailEditText.getText().toString());
+        IntentDataClass editedData = new IntentDataClass();
+        editedData.setName(nameEditText.getText().toString());
+        editedData.setSurname(surnameEditText.getText().toString());
+        editedData.setPatronymic(patronymicEditText.getText().toString());
+        editedData.setDateOfBirth(dateOfBirthEditText.getText().toString());
+        editedData.setEmail(emailEditText.getText().toString());
+        returnIntent.putExtra(NEW_VALUES, editedData);
         return returnIntent;
     }
 
