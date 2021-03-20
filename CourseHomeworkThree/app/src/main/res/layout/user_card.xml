@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="180dp"
+    android:layout_height="320dp"
+    android:padding="20dp"
+    android:layout_margin="10dp"
+    android:background="@drawable/ripple_effect"
+    android:id="@+id/user_card"
+    >
+
+
+    <ImageView
+        android:id="@+id/userImage"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@mipmap/ic_launcher_round"/>
+
+
+    <TextView
+        android:id="@+id/usernameTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Орлов Сергей Викторович"
+        android:textSize="16dp"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="@+id/userImage"
+        app:layout_constraintStart_toStartOf="@+id/userImage"
+        app:layout_constraintTop_toBottomOf="@id/userImage" />
+
+    <TextView
+        android:id="@+id/dateOfBirthTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="24.08.1997"
+        android:textSize="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/usernameTv"
+        app:layout_constraintStart_toStartOf="@+id/usernameTv"
+        app:layout_constraintTop_toBottomOf="@id/usernameTv" />
+
+    <TextView
+        android:id="@+id/emailTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="gogogo@mail.ru"
+        android:textSize="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/dateOfBirthTv"
+        app:layout_constraintStart_toStartOf="@+id/dateOfBirthTv"
+        app:layout_constraintTop_toBottomOf="@id/dateOfBirthTv" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
