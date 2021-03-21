@@ -20,7 +20,12 @@ public class UserRecyclerViewAdapter extends RecyclerView.Adapter<UserRecyclerVi
 
     private ArrayList<UserClass> users = new ArrayList<>();
     public static final String USER_DATA_EXTRA = "user_data_extra";
+    UserClickListener userClickListener;
 
+
+    public UserRecyclerViewAdapter(UserClickListener userClickListener) {
+        this.userClickListener = userClickListener;
+    }
 
     @NonNull
     @Override
@@ -58,10 +63,12 @@ public class UserRecyclerViewAdapter extends RecyclerView.Adapter<UserRecyclerVi
             dateOfBirth = itemView.findViewById(R.id.dateOfBirthTv);
             email = itemView.findViewById(R.id.emailTv);
             itemView.setOnClickListener(view -> {
-                Intent user_intent = new Intent(view.getContext(),UserActivity.class);
-                user_intent.putExtra(USER_DATA_EXTRA, users.get(getAdapterPosition()));
-                view.getContext().startActivity(user_intent);
+                userClickListener.onUserClick(view, getAdapterPosition());
             });
         }
+    }
+
+    public interface UserClickListener{
+        void onUserClick(View v, int position);
     }
 }

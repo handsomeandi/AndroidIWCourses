@@ -4,11 +4,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+import static com.example.coursehomeworkthree.UserRecyclerViewAdapter.USER_DATA_EXTRA;
+
+public class MainActivity extends AppCompatActivity implements UserRecyclerViewAdapter.UserClickListener {
 
     RecyclerView usersRecyclerView;
     UserRecyclerViewAdapter userRecyclerViewAdapter;
@@ -19,11 +23,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         usersRecyclerView = findViewById(R.id.usersRecyclerView);
-        userRecyclerViewAdapter = new UserRecyclerViewAdapter();
+        userRecyclerViewAdapter = new UserRecyclerViewAdapter(this);
         userRecyclerViewAdapter.setUsers(getData());
         usersRecyclerView.setLayoutManager(new GridLayoutManager(this,2));
         usersRecyclerView.setAdapter(userRecyclerViewAdapter);
-
     }
 
 
@@ -45,5 +48,12 @@ public class MainActivity extends AppCompatActivity {
                 "Онегин Андрей Иванович","13.06.2000", "poppoop@mail.ru"));
         return data;
 
+    }
+
+    @Override
+    public void onUserClick(View v, int position) {
+        Intent user_intent = new Intent(this,UserActivity.class);
+        user_intent.putExtra(USER_DATA_EXTRA, getData().get(position));
+        startActivity(user_intent);
     }
 }
