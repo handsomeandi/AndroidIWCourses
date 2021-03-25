@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity implements UserRecyclerViewA
     RecyclerView usersRecyclerView;
     UserRecyclerViewAdapter userRecyclerViewAdapter;
     ArrayList<UserClass> users;
+    Gson gson = new Gson();
     public static final String MY_PREFS = "myprefs";
     public static final String MY_ARRAY = "myarray";
 
@@ -38,7 +39,6 @@ public class MainActivity extends AppCompatActivity implements UserRecyclerViewA
         userRecyclerViewAdapter.setUsers(users);
         usersRecyclerView.setLayoutManager(new GridLayoutManager(this,2));
         usersRecyclerView.setAdapter(userRecyclerViewAdapter);
-        Gson gson = new Gson();
         String saved_array = gson.toJson(users);
         saveArray(saved_array);
     }
@@ -88,7 +88,6 @@ public class MainActivity extends AppCompatActivity implements UserRecyclerViewA
         builder.setPositiveButton(this.getString(R.string.yes), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Gson gson = new Gson();
                 userRecyclerViewAdapter.removeUser(position);
                 saveArray(gson.toJson(userRecyclerViewAdapter.getUsers()));
             }
