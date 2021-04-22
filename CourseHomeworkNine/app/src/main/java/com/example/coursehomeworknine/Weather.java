@@ -9,39 +9,39 @@ import java.util.List;
 
 public class Weather{
     @SerializedName("main")
-    private JsonObject main;
+    private MainObject main;
     @SerializedName("weather")
-    private List<JsonObject> weather;
+    private List<WeatherObject> weather;
     @SerializedName("wind")
-    private JsonObject wind;
+    private WindObject wind;
     @SerializedName("sys")
-    private JsonObject sys;
+    private SunObject sys;
 
     public String getTemp() {
-        return main.get("temp").getAsString();
+        return main.getTemp();
     }
 
     public String getWeatherConditions() {
-        return weather.get(0).get("description").getAsString();
+        return weather.get(0).getDescription();
     }
 
     public String getWindSpeed() {
-        return wind.get("speed").getAsString();
+        return wind.getSpeed();
     }
 
 
     public String getHumidity() {
-        return main.get("humidity").getAsString();
+        return main.getHumidity();
     }
 
 
     public String getSunrise() {
-        return getDate(sys.get("sunrise").getAsLong(), "HH:mm:ss");
+        return getDate(sys.getSunrise(), "HH:mm:ss");
     }
 
 
     public String getSunset() {
-        return getDate(sys.get("sunset").getAsLong(), "HH:mm:ss");
+        return getDate(sys.getSunset(), "HH:mm:ss");
     }
 
     public static String getDate(long seconds, String dateFormat)
