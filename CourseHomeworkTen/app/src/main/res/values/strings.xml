@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">CourseHomeworkTen</string>
+    <string name="sunset">"Закат: "</string>
+    <string name="sunrise">"Восход: "</string>
+    <string name="current_temp">"Текущая температура: "</string>
+    <string name="humidity">"Влажность: "</string>
+    <string name="wind_speed">"Скорость ветра: "</string>
+    <string name="weather_cond">"Погодные условия: "</string>
+    <string name="err">"Something went wrong: "</string>
+</resources>

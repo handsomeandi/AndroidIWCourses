@@ -1,0 +1,19 @@
+package com.example.coursehomeworkten
+
+import com.google.gson.annotations.SerializedName
+
+
+
+
+class WeatherObject {
+    @SerializedName("description")
+    private var description: String? = null
+
+    fun getDescription(): String? {
+        return description
+    }
+
+    fun setDescription(description: String?) {
+        this.description = description
+    }
+}
